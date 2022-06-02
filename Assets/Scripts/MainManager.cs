@@ -15,7 +15,7 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    //private int m_Points;
     
     private bool m_GameOver = false;
 
@@ -38,7 +38,8 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        bestScoreText.text = "Best score: " + DataManager.instance.saveData.topPlayerName + " : " + DataManager.instance.saveData.bestScore;
+        Player bestPlayer = DataManager.instance.saveData.GetBestPlayer();
+        bestScoreText.text = "Best score: " + bestPlayer.playerName + " : " + bestPlayer.bestScore;
     }
 
     private void Update()
@@ -67,8 +68,8 @@ public class MainManager : MonoBehaviour
 
     void AddPoint(int point)
     {
-        m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        DataManager.currentPlayer.bestScore += point;
+        ScoreText.text = $"Score : {DataManager.currentPlayer.bestScore}";
     }
 
     public void GameOver()
@@ -76,7 +77,7 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
 
-        if (DataManager.instance.saveData.bestScore < m_Points)
-            DataManager.instance.Save(m_Points);
+        //if (DataManager.instance.saveData.bestScore < m_Points)
+        DataManager.instance.Save();
     }
 }

@@ -16,7 +16,8 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         ////Set best score text and name
-        bestScoreText.text = "Best score: " + DataManager.instance.saveData.topPlayerName + " : " + DataManager.instance.saveData.bestScore;
+        Player bestPlayer = DataManager.instance.saveData.GetBestPlayer();
+        bestScoreText.text = "Best score: " + bestPlayer.playerName + " : " + bestPlayer.bestScore;
     }
 
     public void StartGame()
@@ -34,8 +35,13 @@ public class MenuManager : MonoBehaviour
 #endif        
     }
 
+    public void OpenHighScore()
+    {
+        SceneManager.LoadScene("high score");
+    }
+
     public void InstertName(string name)
     {    
-        DataManager.currentPlayerName = name;
+        DataManager.currentPlayer.playerName = name;
     }
 }
